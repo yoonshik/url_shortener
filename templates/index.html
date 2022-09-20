@@ -3,7 +3,11 @@
   <head>
     <title>This is the title of the webpage!</title>
   </head>
-  <body>
-    <p>Text box</p>
-  </body>
+  <form action="/create/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <label for="url">URL:</label>
+    <input type="text" id="fname" name="url">
+    <input type="submit" value="Submit">
+  </form>
 </html>
