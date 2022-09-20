@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<str:shortened_url>/', views.redirect_shortened_url),
     path('', views.index),
+    path('create/', views.create_url),
+    path('<str:shortened_url>/', views.redirect_shortened_url),
 ]
