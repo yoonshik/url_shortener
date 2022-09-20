@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
+def index(request):
+    context = {}
+    return render(request, 'index.html', context=context)
+
 def homepage(request):
     return HttpResponse('Create')
 
