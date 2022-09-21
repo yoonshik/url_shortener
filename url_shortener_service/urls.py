@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
     path('create/', views.create_url),
-    path('<str:shortened_url>/', views.redirect_shortened_url),
+    path('<str:shortened_url_path>/', views.redirect_shortened_url),
 ]
