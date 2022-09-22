@@ -13,8 +13,8 @@ def replenish_shortened_url_paths():
     if require_more_url_paths():
         add_new_available_paths(5)
 
-    from url_creator.models import ShortenedUrlPath
-    ShortenedUrlPath.objects.all().delete()
+    # from url_creator.models import ShortenedUrlPath
+    # ShortenedUrlPath.objects.all().delete()
 
 
 def start():
