@@ -10,14 +10,12 @@ from url_creator.url_submission_db_helper import create_and_save_shortened_url
 
 
 def index(request):
-    print('helloyoonshik index')
     context = {}
     return render(request, 'index.html', context=context)
 
 
 @csrf_protect
 def create_url(request):
-    print('helloyoonshik create_url')
     if request.method == 'POST':
         form = UrlForm(request.POST)
         if form.is_valid():
@@ -26,9 +24,13 @@ def create_url(request):
 
 
 def redirect_shortened_url(request, shortened_url_path):
-    print('helloyoonshik redirect_shortened_url')
-    url_submission = UrlSubmission.objects.get(
+    try:
+        url_submission = UrlSubmission.objects.get(
         shortened_url_path=shortened_url_path)
+    except UrlSubmission.DoesNotExist:
+        url_submission = None
+    if not url_submission:
+        return HttpResponse('invalid url')
     response = HttpResponse("", status=302)
     response['Location'] = str(url_submission.url)
     return response
