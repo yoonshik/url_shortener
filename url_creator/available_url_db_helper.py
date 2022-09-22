@@ -2,12 +2,18 @@ from re import A
 from url_creator.models import ShortenedUrlPath
 from url_creator.shortened_url_generator import generate_url_paths
 from itertools import islice
+import os
+
+NUM_NEW_AVAILABLE_URL_PATHS = os.environ.get('NUM_NEW_AVAILABLE_URL_PATHS', 10)
+
 
 def require_more_url_paths():
-    return number_of_available_urls() < 50
+    return number_of_available_urls() < int(NUM_NEW_AVAILABLE_URL_PATHS)
+
 
 def number_of_available_urls():
     return ShortenedUrlPath.objects.filter(in_use=False).count()
+
 
 def add_new_available_paths(count):
     url_paths = generate_url_paths(count)
@@ -19,9 +25,13 @@ def add_new_available_paths(count):
     deduplicated_url_path_entries = []
 
     for url_path in url_paths:
-        url_path_entry = ShortenedUrlPath(shortened_url_path=url_path, in_use=False)
+        url_path_entry = ShortenedUrlPath(
+            shortened_url_path=url_path, in_use=False)
         deduplicated_url_path_entries.append(url_path_entry)
         url_path_entry.save()
+
+
+    print('available_url_db_helper.py new shortened url paths: ' + str(url_paths))
 
     # batch_size = 10
 
@@ -30,6 +40,7 @@ def add_new_available_paths(count):
     #     if not batch:
     #         break
     #     ShortenedUrlPath.objects.bulk_create(batch, batch_size)
+
 
 def get_available_shortened_url_path():
     entry = ShortenedUrlPath.objects.filter(in_use=False).first()

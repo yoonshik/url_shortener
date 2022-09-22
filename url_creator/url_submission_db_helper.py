@@ -19,7 +19,6 @@ def create_and_save_shortened_url(form):
     shortened_url_path = get_available_shortened_url_path()
     url_submission = UrlSubmission(
         url=url, shortened_url_path=shortened_url_path)
-    print(url + ' TO ' + shortened_url_path)
     url_submission.save()
     return HttpResponse('Saved ' + url + ' TO ' + shortened_url_path)
 
