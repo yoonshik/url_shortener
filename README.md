@@ -1,3 +1,6 @@
+How to set up:
+
+
 Run the following commands to create a local database. You'll need to have mysql/mysqlclient/mariadb set up
 
 ```
@@ -29,6 +32,8 @@ export DELAY_AVAILABLE_URL_PATH_CHECK_S=10
 export MAX_URL_PATH_LENGTH=10
 ```
 
+
+
 Run the following commands to run the server
 
 ```
@@ -36,3 +41,4 @@ source environment
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
+```
