@@ -23,7 +23,7 @@ def add_new_available_paths(count):
         deduplicated_url_path_entries.append(url_path_entry)
         url_path_entry.save()
 
-    # batch_size = 2
+    # batch_size = 10
 
     # while True:
     #     batch = list(islice(deduplicated_url_path_entries, batch_size))
