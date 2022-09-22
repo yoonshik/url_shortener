@@ -19,7 +19,7 @@ def create_url(request):
     if request.method == 'POST':
         form = UrlForm(request.POST)
         if form.is_valid():
-            return create_and_save_shortened_url(form)
+            return create_and_save_shortened_url(request, form)
     return HttpResponse('invalid url')
 
 

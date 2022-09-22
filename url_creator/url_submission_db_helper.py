@@ -8,7 +8,7 @@ from url_creator.available_url_db_helper import get_available_shortened_url_path
 from urllib.parse import urlparse
 
 
-def create_and_save_shortened_url(form):
+def create_and_save_shortened_url(request, form):
     print('create_and_save_shortened_url')
     url = form.cleaned_data['url']
     if '://' not in url:
@@ -20,7 +20,8 @@ def create_and_save_shortened_url(form):
     url_submission = UrlSubmission(
         url=url, shortened_url_path=shortened_url_path)
     url_submission.save()
-    return HttpResponse('Saved ' + url + ' TO ' + shortened_url_path)
+    shortened_url = "{0}://{1}/{2}".format(request.scheme, request.get_host(), shortened_url_path)
+    return HttpResponse('Saved ' + url + ' TO ' + shortened_url)
 
 
 def is_valid_url(url):
